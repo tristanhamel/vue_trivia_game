@@ -9,10 +9,31 @@ module.exports = {
     filename: 'index.js'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.vue'],
+    alias: {
+      vue: 'vue/dist/vue.js'
+    }
   },
   module: {
     loaders: [
+      {test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
+            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax', // <style lang="sass">
+            js: {
+              exclude: /node_modules/,
+              loader: 'babel-loader',
+              query: {
+                presets: ['es2015'],
+                plugins: ['transform-object-rest-spread']
+              }
+            }
+          },
+          extractCSS: true
+        }
+      },
       {
         test: /\.(js)$/,
         exclude: /node_modules/,

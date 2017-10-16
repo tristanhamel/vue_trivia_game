@@ -51,4 +51,20 @@ export const onAnswer = function({commit, state, dispatch}, correct) {
   if(state.questions.index < state.questions.items.length - 2) {
     dispatch('boot');
   }
+
+  // move on to next stage if the game is won
+  if(state.game.score >= state.game.max) {
+    dispatch('nextStage');
+  }
+};
+
+export const nextStage = function({commit, state}) {
+  if(state.game.stage === 'start') {
+    commit(mutations.GAME_SET_STAGE, {stage: 'play'});
+  } else if (state.game.stage === 'play') {
+    commit(mutations.GAME_SET_STAGE, {stage: 'end'});
+  } else {
+    commit(mutations.GAME_RESET);
+    commit(mutations.QUESTIONS_RESET);
+  }
 };

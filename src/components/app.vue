@@ -2,7 +2,8 @@
   <div>
     <statusBar></statusBar>
     <quizz-container :question="getCurrentQuestion"
-                     v-if="getCurrentQuestion">
+                     v-if="getCurrentQuestion"
+                     @onAnswer="onAnswer">
     </quizz-container>
     <board :score="score"></board>
   </div>
@@ -25,7 +26,7 @@
       ])
     },
     methods: {
-      ...mapActions(['boot'])
+      ...mapActions(['boot', 'onAnswer'])
     },
     created: function() {
       this.boot();

@@ -44,4 +44,11 @@ export const boot = function({commit}) {
 
 export const reset = function() {};
 
-export const onAnswer = function() {};
+export const onAnswer = function({commit, state, dispatch}, correct) {
+  commit(mutations.QUESTIONS_ON_ANSWER, correct);
+
+  // get more questions if we are running out
+  if(state.questions.index < state.questions.items.length - 2) {
+    dispatch('boot');
+  }
+};

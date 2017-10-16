@@ -8,7 +8,7 @@
       </div>
     </div>
     <div>
-      {{ question.question }}
+      <span v-html="question.question"></span>
     </div>
     <div>
       <form>
@@ -18,8 +18,12 @@
                  :id="a.text"
                  @click="onAnswer(a.correct)"
                  :value="a.text">
-          <label :for="a.text">
-            {{ a.text }}
+          <label :for="a.text"
+                 :class="{
+                   'correct-answer': answer.length && a.correct,
+                   'wrong-answer': answer.length && !a.correct && a.text === answer
+                 }" >
+            <span v-html="a.text"></span>
           </label>
         </span>
       </form>
@@ -42,14 +46,23 @@
     },
     methods: {
       onAnswer(correct) {
-        this.$emit('onAnswer', correct);
-      },
+
+        setTimeout(() => {
+          this.$emit('onAnswer', correct);
+          this.answer = '';
+        }, 1000)
+      }
     },
-    components: {},
-    beforeUpdate() {
-//      this.answer = '';
-    }
+    components: {}
   })
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .correct-answer {
+    color: green;
+  }
+
+  .wrong-answer {
+    color: red;
+  }
+</style>

@@ -5,8 +5,9 @@ export const questions = {
     isQuestionsLoading: false,
     items: [],
     index: 0,
-    rightAnswers: [],
-    wrongAnswers: []
+    rightQuestions: [],
+    wrongQuestions: [],
+    passedQuestions: []
   },
   mutations: {
     [mutations.QUESTIONS_INCREMENT_INDEX](state) {
@@ -22,7 +23,9 @@ export const questions = {
       state.isQuestionsLoading = false;
     },
     [mutations.QUESTIONS_ON_ANSWER](state, {correct}) {
-      correct ? state.rightAnswers.push(state.index) : state.wrongAnswers.push(state.index);
+      !correct ?  state.wrongQuestions.push(state.index) : correct === 'pass' ? 
+        state.passedQuestions.push(state.index) : state.rightQuestions.push(state.index);
+
       state.index++;
     },
     [mutations.QUESTIONS_RESET](state) {
@@ -30,15 +33,17 @@ export const questions = {
         isQuestionsLoading: false,
         items: [],
         index: 0,
-        rightAnswers: [],
-        wrongAnswers: []
+        rightQuestions: [],
+        wrongQuestions: [],
+        passedQuestions: []
       };
     }
   },
   actions: {},
   getters: {
     getCurrentQuestion: state => state.items[state.index],
-    getRightAnswers: state => state.items.filter((item, i) => state.rightAnswers.includes(i)),
-    getWrongAnswers: state => state.items.filter((item, i) => state.wrongAnswers.includes(i)),
+    getRightQuestions: state => state.items.filter((item, i) => state.rightQuestions.includes(i)),
+    getWrongQuestions: state => state.items.filter((item, i) => state.wrongQuestions.includes(i)),
+    getPassedQuestions: state => state.items.filter((item, i) => state.passedQuestions.includes(i)),
   }
 };

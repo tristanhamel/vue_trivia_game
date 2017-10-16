@@ -70,22 +70,33 @@
   }
 
   export default Vue.component('board', {
+    data: () => ({tiles: []}),
     props: {
       score: Number
     },
     mounted() {
-      const tiles = this.$el.getElementsByClassName('tile');
+      this.tiles = Array.from(this.$el.getElementsByClassName('tile'));
 
       // add random bg colors to tiles - makes sure it's different from previous
-      Array.from(tiles)
+      this.tiles
         .reduce((previous, t) => {
           const current = getRandomColorClass(previous, 4);
           t.classList.add('fill' + current, 'not-correct');
           return current;
         }, -1);
     },
-    beforeUpdate() {
-      //todo: light up tiles according to new score
+    watch: {
+      score(score) {
+        this.tiles
+          .forEach((t, i) => {
+            console.log('updating');
+            i <= score ? t.classList.remove('not-correct') : t.classList.add('not-correct');
+          });
+
+
+        //todo: light up tiles according to new score
+      }
+
     }
   });
 </script>

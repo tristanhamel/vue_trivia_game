@@ -13,7 +13,7 @@ export const questions = {
       state.index++;
     },
     [mutations.QUESTIONS_ADD](state, {newQuestions}) {
-      state.questions = [...state.questions, ...newQuestions];
+      state.items = [...state.items, ...newQuestions];
     },
     [mutations.QUESTIONS_LOADING](state) {
       state.isQuestionsLoading = true;

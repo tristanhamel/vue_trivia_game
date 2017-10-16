@@ -1,18 +1,31 @@
 <template>
-  <div>Hello there!</div>
+  <div>
+    <statusBar></statusBar>
+    <board :score="score"></board>
+  </div>
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+  import { mapActions, mapState } from 'vuex';
+
+  import statusBar from './status-bar/statusBar.vue';
+  import board from './board/board.vue';
 
   export default {
-    data() {return {}},
-    components: {},
+    computed: {
+      ...mapState({
+        score: state => state.game.score
+      })
+    },
     methods: {
       ...mapActions(['boot'])
     },
     created: function() {
 //      this.boot();
+    },
+    components: {
+      statusBar,
+      board
     }
   }
 </script>

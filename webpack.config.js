@@ -22,14 +22,6 @@ module.exports = {
           loaders: {
             scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
             sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax', // <style lang="sass">
-            js: {
-              exclude: /node_modules/,
-              loader: 'babel-loader',
-              query: {
-                presets: ['es2015'],
-                plugins: ['transform-object-rest-spread']
-              }
-            }
           },
           extractCSS: true
         }

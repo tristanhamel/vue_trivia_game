@@ -1,4 +1,4 @@
-import * as mutations from './mutations-types';
+import * as mutations from '../mutations-types';
 
 export const game = {
   state: {

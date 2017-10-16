@@ -44,8 +44,14 @@ export const boot = function({commit}) {
 
 export const reset = function() {};
 
-export const onAnswer = function({commit, state, dispatch}, correct) {
+export const onAnswer = function({commit, state, dispatch, getters}, correct) {
   commit(mutations.QUESTIONS_ON_ANSWER, correct);
+
+  // update score
+  if(correct !== 'pass') {
+    const n = getters.getCurrentQuestion.difficulty;
+    correct ? commit(mutations.GAME_INCREASE_SCORE, {n}) : commit(mutations.GAME_DECREASE_SCORE, {n});
+  }
 
   // get more questions if we are running out
   if(state.questions.index < state.questions.items.length - 2) {

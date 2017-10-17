@@ -30,14 +30,14 @@ export const questions = {
       state.index++;
     },
     [mutations.QUESTIONS_RESET](state) {
-      state = {
+      Object.assign(state, {
         isQuestionsLoading: false,
         items: [],
         index: 0,
         rightQuestions: [],
         wrongQuestions: [],
         passedQuestions: []
-      };
+      });
     }
   },
   actions: {},

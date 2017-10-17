@@ -20,7 +20,8 @@
               @onRestart="reset"
               v-if="stage === 'end'">
     </end-view>
-    <board :score="score"></board>
+    <board :score="score"
+           v-if="stage === 'play'"></board>
   </div>
 </template>
 

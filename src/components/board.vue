@@ -7,7 +7,10 @@
         <feFuncB type="linear" slope="0.5"></feFuncB>
       </feComponentTransfer>
     </filter>
-    <path v-for="tile in tiles" :d="tile.d" :class="tile.className + ' not-correct'"></path>
+    <path v-for="(tile, i) in tiles"
+          :d="tile.d"
+          :class="['tile', tile.className, i > score ? 'not-correct' : '']">
+    </path>
   </svg>
 </template>
 
@@ -28,6 +31,15 @@
       const board = boardGenerator(20);
       this.tiles = board.tiles;
       this.viewBox = board.viewBox;
+    },
+    computed: {
+      classObject(tile, i) {
+        return {
+          'tile': true,
+          [tile.className]: true,
+          'not-correct': i > this.score
+        };
+      }
     },
     watch: {
       score(score) {

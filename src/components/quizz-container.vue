@@ -38,6 +38,7 @@
 
 <script>
   import Vue from 'vue';
+  import * as settings from '../settings';
 
   export default Vue.component('quizz-container', {
     data: () => ({answer: ''}),
@@ -49,8 +50,12 @@
 
         setTimeout(() => {
           this.$emit('onAnswer', correct);
-          this.answer = '';
-        }, 1000)
+        }, settings.ANSWER_RESOLUTION_DELAY)
+      }
+    },
+    watch: {
+      question() {
+        this.answer = '';
       }
     },
     components: {}

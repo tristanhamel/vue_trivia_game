@@ -5,7 +5,8 @@ export const game = {
     score: 0,
     max: 33,
     difficulty: 'easy',
-    stage: 'start'
+    stage: 'start',
+    isUpdating: false
   },
   mutations: {
     [mutations.GAME_INCREASE_SCORE](state, {n}) {
@@ -23,7 +24,14 @@ export const game = {
     },
     [mutations.GAME_SET_STAGE](state, {stage}) {
       state.stage = stage;
+    },
+    [mutations.GAME_UPDATING](state) {
+      state.isUpdating = true;
+    },
+    [mutations.GAME_UPDATED](state) {
+      state.isUpdating = false;
     }
+
   },
   actions: {
 

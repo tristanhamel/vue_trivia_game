@@ -89,12 +89,8 @@
       score(score) {
         this.tiles
           .forEach((t, i) => {
-            console.log('updating');
             i <= score ? t.classList.remove('not-correct') : t.classList.add('not-correct');
           });
-
-
-        //todo: light up tiles according to new score
       }
 
     }

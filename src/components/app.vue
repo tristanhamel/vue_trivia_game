@@ -1,6 +1,9 @@
 <template>
   <div>
-    <statusBar></statusBar>
+    <statusBar v-if="stage === 'play'"
+               :questionCount="questionCount"
+               :score="score">
+    </statusBar>
     <start-menu :difficulty="difficulty"
                 @onSetDifficulty="setDifficulty"
                 @onStart="nextStage"
@@ -19,17 +22,18 @@
 
   import * as mutations from '../store/mutations-types';
 
-  import statusBar from './status-bar/statusBar.vue';
-  import startMenu from './start-menu/start-menu.vue';
-  import quizzContainer from './quizz/quizz-container.vue';
-  import board from './board/board.vue';
+  import statusBar from './statusBar.vue';
+  import startMenu from './start-menu.vue';
+  import quizzContainer from './quizz-container.vue';
+  import board from './board.vue';
 
   export default {
     computed: {
       ...mapState({
         score: state => state.game.score,
         difficulty: state => state.game.difficulty,
-        stage: state => state.game.stage
+        stage: state => state.game.stage,
+        questionCount: state => state.questions.index + 1
       }),
       ...mapGetters([
         'getCurrentQuestion'

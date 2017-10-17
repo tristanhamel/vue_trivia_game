@@ -1,5 +1,6 @@
 import * as mutations from './mutations-types';
 import { questionLoader } from '../services/question-loader';
+import * as settings from '../settings';
 
 const difficulties = {
   easy: 1,
@@ -45,22 +46,43 @@ export const boot = function({commit}) {
 export const reset = function() {};
 
 export const onAnswer = function({commit, state, dispatch, getters}, correct) {
-  commit(mutations.QUESTIONS_ON_ANSWER, correct);
+  function delay(t) {
+    return new Promise(resolve => {
+      setTimeout(resolve, t);
+    });
+  }
+
+  function countDown(n, t) {
+    return delay(t)
+      .then(() => {
+        correct ? commit(mutations.GAME_INCREASE_SCORE, {n: 1}) : commit(mutations.GAME_DECREASE_SCORE, {n: 1});
+        n--;
+        return n > 0 ? countDown(n, t) : delay(settings.NEXT_QUESTION_DELAY);
+      });
+  }
 
   // update score
   if(correct !== 'pass') {
-    const n = getters.getCurrentQuestion.difficulty;
-    correct ? commit(mutations.GAME_INCREASE_SCORE, {n}) : commit(mutations.GAME_DECREASE_SCORE, {n});
+    const points = getters.getCurrentQuestion.difficulty;
+
+    commit(mutations.GAME_UPDATING);
+    countDown(points, settings.STAGGERING_DELAY)
+      .then(() => {
+        commit(mutations.GAME_UPDATED);
+        commit(mutations.QUESTIONS_ON_ANSWER, correct);
+
+        // move on to next stage if the game is won
+        if(state.game.score >= state.game.max) {
+          dispatch('nextStage');
+        }
+      });
+  } else {
+    commit(mutations.QUESTIONS_ON_ANSWER, correct);
   }
 
   // get more questions if we are running out
   if(state.questions.index < state.questions.items.length - 2) {
     dispatch('boot');
-  }
-
-  // move on to next stage if the game is won
-  if(state.game.score >= state.game.max) {
-    dispatch('nextStage');
   }
 };
 

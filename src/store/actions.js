@@ -45,6 +45,7 @@ export const boot = function({commit}) {
 
 export const reset = function({commit, dispatch}) {
   commit(mutations.QUESTIONS_RESET);
+  commit(mutations.GAME_RESET);
   dispatch('boot');
 };
 
@@ -75,7 +76,7 @@ export const onAnswer = function({commit, state, dispatch, getters}, correct) {
     countDown(points, settings.STAGGERING_DELAY)
       .then(() => {
         commit(mutations.GAME_UPDATED);
-        commit(mutations.QUESTIONS_ON_ANSWER, correct);
+        commit(mutations.QUESTIONS_ON_ANSWER, {correct});
 
         // move on to next stage if the game is won
         if(state.game.score >= state.game.max) {

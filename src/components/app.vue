@@ -2,7 +2,8 @@
   <div>
     <statusBar v-if="stage === 'play'"
                :questionCount="questionCount"
-               :score="score">
+               :score="score"
+               @onRestart="reset">
     </statusBar>
     <start-menu :difficulty="difficulty"
                 @onSetDifficulty="setDifficulty"
@@ -16,7 +17,8 @@
     <end-view :correct="getRightQuestionsCount"
               :incorrect="getWrongQuestionsCount"
               :passed="getPassedQuestionsCount"
-              @onRestart="reset">
+              @onRestart="reset"
+              v-if="stage === 'end'">
     </end-view>
     <board :score="score"></board>
   </div>

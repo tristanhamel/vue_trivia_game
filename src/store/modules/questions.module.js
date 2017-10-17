@@ -23,7 +23,6 @@ export const questions = {
       state.isQuestionsLoading = false;
     },
     [mutations.QUESTIONS_ON_ANSWER](state, {correct}) {
-      console.log(correct);
       correct === 'pass' ? state.passedQuestions.push(state.index) :
         correct ? state.rightQuestions.push(state.index) :
           state.wrongQuestions.push(state.index);

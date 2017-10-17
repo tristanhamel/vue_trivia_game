@@ -3,7 +3,7 @@ import * as mutations from '../mutations-types';
 export const game = {
   state: {
     score: 0,
-    max: 33,
+    max: 7,
     difficulty: 'easy',
     stage: 'start',
     isUpdating: false

@@ -13,6 +13,11 @@
                      v-if="getCurrentQuestion && stage === 'play'"
                      @onAnswer="onAnswer">
     </quizz-container>
+    <end-view :correct="getRightQuestionsCount"
+              :incorrect="getWrongQuestionsCount"
+              :passed="getPassedQuestionsCount"
+              @onRestart="reset">
+    </end-view>
     <board :score="score"></board>
   </div>
 </template>
@@ -26,6 +31,7 @@
   import startMenu from './start-menu.vue';
   import quizzContainer from './quizz-container.vue';
   import board from './board.vue';
+  import endView from './end-view.vue';
 
   export default {
     computed: {
@@ -36,12 +42,15 @@
         questionCount: state => state.questions.index + 1
       }),
       ...mapGetters([
-        'getCurrentQuestion'
+        'getCurrentQuestion',
+        'getRightQuestionsCount',
+        'getWrongQuestionsCount',
+        'getPassedQuestionsCount'
       ]),
 
     },
     methods: {
-      ...mapActions(['boot', 'onAnswer', 'nextStage']),
+      ...mapActions(['boot', 'onAnswer', 'nextStage', 'reset']),
       ...mapMutations({
         setDifficulty: mutations.GAME_SET_DIFFICULTY
       })
@@ -53,7 +62,8 @@
       statusBar,
       startMenu,
       quizzContainer,
-      board
+      board,
+      endView
     }
   }
 </script>

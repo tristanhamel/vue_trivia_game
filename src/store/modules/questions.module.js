@@ -23,8 +23,10 @@ export const questions = {
       state.isQuestionsLoading = false;
     },
     [mutations.QUESTIONS_ON_ANSWER](state, {correct}) {
-      !correct ?  state.wrongQuestions.push(state.index) : correct === 'pass' ? 
-        state.passedQuestions.push(state.index) : state.rightQuestions.push(state.index);
+      console.log(correct);
+      correct === 'pass' ? state.passedQuestions.push(state.index) :
+        correct ? state.rightQuestions.push(state.index) :
+          state.wrongQuestions.push(state.index);
 
       state.index++;
     },
@@ -45,5 +47,8 @@ export const questions = {
     getRightQuestions: state => state.items.filter((item, i) => state.rightQuestions.includes(i)),
     getWrongQuestions: state => state.items.filter((item, i) => state.wrongQuestions.includes(i)),
     getPassedQuestions: state => state.items.filter((item, i) => state.passedQuestions.includes(i)),
+    getRightQuestionsCount: state => state.rightQuestions.length,
+    getWrongQuestionsCount: state => state.wrongQuestions.length,
+    getPassedQuestionsCount: state => state.passedQuestions.length
   }
 };

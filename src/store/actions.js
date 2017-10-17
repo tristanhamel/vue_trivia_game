@@ -43,7 +43,10 @@ export const boot = function({commit}) {
     });
 };
 
-export const reset = function() {};
+export const reset = function({commit, dispatch}) {
+  commit(mutations.QUESTIONS_RESET);
+  dispatch('boot');
+};
 
 export const onAnswer = function({commit, state, dispatch, getters}, correct) {
   function delay(t) {
@@ -63,7 +66,10 @@ export const onAnswer = function({commit, state, dispatch, getters}, correct) {
 
   // update score
   if(correct !== 'pass') {
-    const points = getters.getCurrentQuestion.difficulty;
+    let points = getters.getCurrentQuestion.difficulty;
+    if(correct) {
+      points = Math.min(points, state.game.max - state.game.score);
+    }
 
     commit(mutations.GAME_UPDATING);
     countDown(points, settings.STAGGERING_DELAY)

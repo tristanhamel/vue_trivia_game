@@ -1,17 +1,31 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox">
-    <filter id="brightness">
-      <feComponentTransfer in="SourceGraphic" result="brightness-filter">
-        <feFuncR type="linear" slope="0.5"></feFuncR>
-        <feFuncG type="linear" slope="0.5"></feFuncG>
-        <feFuncB type="linear" slope="0.5"></feFuncB>
-      </feComponentTransfer>
-    </filter>
-    <path v-for="(tile, i) in tiles"
-          :d="tile.d"
-          :class="['tile', tile.className, i > score ? 'not-correct' : '']">
-    </path>
-  </svg>
+  <div class="board">
+    <svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox">
+      <defs>
+        <filter id="brightness">
+          <feComponentTransfer in="SourceGraphic" result="brightness-filter">
+            <feFuncR type="linear" slope="0.5"></feFuncR>
+            <feFuncG type="linear" slope="0.5"></feFuncG>
+            <feFuncB type="linear" slope="0.5"></feFuncB>
+          </feComponentTransfer>
+        </filter>
+
+        <pattern id="tiles-bg" x="0" y="0" patternUnits="userSpaceOnUse" height="102" width="102">
+          <image x="0" y="0" xlink:href="https://www.transparenttextures.com/patterns/dust.png"></image>
+        </pattern>
+      </defs>
+
+      <g v-for="(tile, i) in tiles">
+        <path :class="[tile.className, i > score ? 'not-correct' : '']"
+              :d="tile.d">
+        </path>
+        <path :d="tile.d"
+              class="tile">
+        </path>
+      </g>
+
+    </svg>
+  </div>
 </template>
 
 <script>
@@ -57,6 +71,7 @@
 
 <style lang="scss">
   .tile {
+    fill: url(#tiles-bg);
   }
 
   .fill0 {
@@ -76,6 +91,7 @@
   }
 
   .not-correct {
-    filter: url(#brightness);
+    fill: gray;
+    /*filter: url(#brightness);*/
   }
 </style>

@@ -82,7 +82,7 @@
   @import '../styles/mixins.scss';
 
   .start-menu {
-    background-color: black;
+    background-color: $background-color;
     min-height: 100vh;
     min-width: 100vw;
     position: absolute;
@@ -107,6 +107,10 @@
 
   .start-menu-section:last-of-type {
     margin-top: 2rem;
+
+    .button {
+      font-size: 2rem;
+    }
   }
 
   .form-item {

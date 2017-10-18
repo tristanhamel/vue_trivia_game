@@ -1,3 +1,6 @@
 $font-color: #d1d1d1;
 $font-color-active: white;
 $font-family: serif;
+
+$background-color: black;
+$background-color-lighter: lighten($background-color, 10%);

@@ -13,6 +13,7 @@
                 v-if="stage === 'start'">
     </start-menu>
     <quizz-container :question="getCurrentQuestion"
+                     :difficulty="difficulty"
                      v-if="getCurrentQuestion && stage === 'play'"
                      @onAnswer="onAnswer">
     </quizz-container>

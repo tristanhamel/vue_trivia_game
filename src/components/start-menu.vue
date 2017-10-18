@@ -9,16 +9,24 @@
         Difficulty
       </h2>
       <form class="start-menu-form">
-        <span v-for="o in difficultyOptions"
-              :class="['form-item', localDif === o ? 'active-option' : '']">
-          <span class="form-item-icon">*</span>
-          <input type="radio"
-                 v-model="localDif"
-                 :value="o"
-                 :id="o"
-                 @click="onSetDifficulty(o)">
-          <label :for="o">{{o}}</label>
-        </span>
+        <div v-for="o in difficultyOptions"
+              :class="['form-item', localDif === o.text ? 'active-option' : '']">
+          <div class="form-item-label-container">
+            <span class="form-item-icon">*</span>
+            <input type="radio"
+                   v-model="localDif"
+                   :value="o.text"
+                   :id="o.text"
+                   @click="onSetDifficulty(o.text)">
+            <label :for="o.text"
+                   class="form-item-label">
+              {{o.text}}
+            </label>
+          </div>
+          <div class="form-item-desc">
+            {{o.desc}}
+          </div>
+        </div>
       </form>
     </div>
 
@@ -27,16 +35,21 @@
         Length
       </h2>
       <form class="start-menu-form">
-        <span v-for="o in lengthOptions"
+        <div v-for="o in lengthOptions"
               :class="['form-item', localLength === o.n ? 'active-option' : '']">
-          <span class="form-item-icon">*</span>
-          <input type="radio"
-                 v-model="localLength"
-                 :value="o.n"
-                 :id="o.text"
-                 @click="onSetLength(o.n)">
-          <label :for="o.text">{{o.text}}</label>
-        </span>
+          <div class="form-item-label-container">
+            <span class="form-item-icon">*</span>
+            <input type="radio"
+                   v-model="localLength"
+                   :value="o.n"
+                   :id="o.text"
+                   @click="onSetLength(o.n)">
+            <label :for="o.text"
+                   class="form-item-label">
+              {{o.text}}
+            </label>
+          </div>
+        </div>
       </form>
     </div>
 
@@ -54,8 +67,16 @@
 
   export default Vue.component('start-menu', {
     data() { return {
-      difficultyOptions: ['easy', 'medium', 'hard'],
-      lengthOptions: [{n: 10, text: 'quicky'}, {n: 20, text: 'regular'}, {n: 30, text: 'epic'}],
+      difficultyOptions: [
+        {text: 'easy', desc: 'Give yourself some slack! A wrong answer won\'t have consequences.'},
+        {text: 'medium', desc: 'You can pass questions you are unsure about but you will be punished for wrong answers.'},
+        {text: 'hard', desc: 'No error margin here!'}
+      ],
+      lengthOptions: [
+        {n: 10, text: 'quicky'},
+        {n: 20, text: 'regular'},
+        {n: 30, text: 'epic'}
+      ],
       localDif: this.difficulty,
       localLength: this.length
     }},
@@ -95,14 +116,17 @@
   }
 
   .section-title {
+    margin: 1rem 0 0 0;
     text-align: center;
     width: 100%;
   }
 
   .start-menu-form {
+    align-items: center;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    width: 100%;
   }
 
   .start-menu-section:last-of-type {
@@ -115,12 +139,30 @@
 
   .form-item {
     padding: 0.2rem;
+    width: 50%;
 
-    @include hoverText;
   }
 
   .form-item-icon {
     visibility: hidden;
+  }
+
+  .form-item-label-container {
+    text-align: center;
+    margin: 0.5rem;
+  }
+
+  .form-item-label {
+    display: inline-block;
+    font-size: larger;
+    text-transform: capitalize;
+
+    @include hoverText;
+  }
+
+  .form-item-desc {
+    font-size: small;
+    text-align: center;
   }
 
   .active-option {

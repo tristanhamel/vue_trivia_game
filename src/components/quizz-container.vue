@@ -31,7 +31,8 @@
           </label>
         </span>
       </form>
-      <div class="quizz-pass">
+      <div class="quizz-pass"
+           v-if="difficulty !== 'hard'">
         <button @click="onAnswer('pass')"
                 class="button">
           Pass
@@ -48,7 +49,8 @@
   export default Vue.component('quizz-container', {
     data: () => ({answer: ''}),
     props: {
-      question: Object
+      question: Object,
+      difficulty: String
     },
     methods: {
       onAnswer(correct) {

@@ -66,7 +66,7 @@ export const onAnswer = function({commit, state, dispatch, getters}, correct) {
   }
 
   // update score
-  if(correct !== 'pass') {
+  if(correct === true || (correct === false && state.game.difficulty === 'hard')) {
     let points = getters.getCurrentQuestion.difficulty;
     if(correct) {
       points = Math.min(points, state.game.max - state.game.score);

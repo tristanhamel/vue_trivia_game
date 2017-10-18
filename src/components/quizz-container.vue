@@ -1,34 +1,39 @@
 <template>
-  <div>
-    <div>
+  <div class="quizz">
+    <div class="quizz-info">
       <div>{{ question.category }}</div>
       <div>
         <span v-for="i in question.difficulty">*</span>
         <span v-for="i in 3 - question.difficulty">-</span>
       </div>
     </div>
-    <div>
+    <div class="question">
       <span v-html="question.question"></span>
     </div>
     <div>
-      <form>
-        <span v-for="a in question.answers">
+      <form class="question-form">
+        <span v-for="a in question.answers"
+              :class="{
+                'form-item': true,
+                'answered': answer,
+                'answer': a.text === answer,
+                'correct-answer': answer.length && a.correct,
+                'wrong-answer': answer.length && !a.correct
+              }">
+          <span class="form-item-icon">*</span>
           <input v-model="answer"
                  type="radio"
                  :id="a.text"
                  @click="onAnswer(a.correct)"
                  :value="a.text">
-          <label :for="a.text"
-                 :class="{
-                   'correct-answer': answer.length && a.correct,
-                   'wrong-answer': answer.length && !a.correct && a.text === answer
-                 }" >
+          <label :for="a.text">
             <span v-html="a.text"></span>
           </label>
         </span>
       </form>
-      <div>
-        <button @click="onAnswer('pass')">
+      <div class="quizz-pass">
+        <button @click="onAnswer('pass')"
+                class="button">
           Pass
         </button>
       </div>
@@ -63,11 +68,66 @@
 </script>
 
 <style lang="scss">
+  @import '../styles/vars.scss';
+  @import '../styles/mixins.scss';
+  @import '../styles/animations.scss';
+
+  .quizz {
+    border: 1px solid $background-color-lighter;
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .quizz-info {
+    border-bottom: 1px solid $background-color-lighter;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .question {
+    margin-bottom: 1rem;
+  }
+
+  .question-form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.3rem;
+  }
+  .form-item {
+    padding: 0.2rem;
+    transition: all 0.1s;
+
+    &:not(.answered) {
+      @include hoverText;
+     }
+  }
+
+  .form-item-icon {
+    visibility: hidden;
+  }
+
+  .answer {
+    transform: scale(1.1);
+
+    .form-item-icon {
+      visibility: visible;
+    }
+  }
+
   .correct-answer {
-    color: green;
+    color: $font-color-active;
+    transform: scale(1.3);
+    animation: zoomBounce 0.3s ease-in;
   }
 
   .wrong-answer {
-    color: red;
+    color: $font-color-inactive;
+  }
+
+  .quizz-pass {
+    text-align: right;
   }
 </style>

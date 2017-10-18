@@ -1,42 +1,44 @@
 <template>
-  <div class="quizz">
-    <div class="quizz-info">
-      <div>{{ question.category }}</div>
-      <div>
-        <span v-for="i in question.difficulty">*</span>
-        <span v-for="i in 3 - question.difficulty">-</span>
+  <div class="quizz-container">
+    <div :class="{'quizz': true, 'cast-out': castOut, 'cast-in': !castOut}">
+      <div class="quizz-info">
+        <div>{{ question.category }}</div>
+        <div>
+          <span v-for="i in question.difficulty">*</span>
+          <span v-for="i in 3 - question.difficulty">-</span>
+        </div>
       </div>
-    </div>
-    <div class="question">
-      <span v-html="question.question"></span>
-    </div>
-    <div>
-      <form class="question-form">
-        <span v-for="a in question.answers"
-              :class="{
-                'form-item': true,
-                'answered': answer,
-                'answer': a.text === answer,
-                'correct-answer': answer.length && a.correct,
-                'wrong-answer': answer.length && !a.correct
-              }">
-          <span class="form-item-icon">*</span>
-          <input v-model="answer"
-                 type="radio"
-                 :id="a.text"
-                 @click="onAnswer(a.correct)"
-                 :value="a.text">
-          <label :for="a.text">
-            <span v-html="a.text"></span>
-          </label>
-        </span>
-      </form>
-      <div class="quizz-pass"
-           v-if="difficulty !== 'hard'">
-        <button @click="onAnswer('pass')"
-                class="button">
-          Pass
-        </button>
+      <div class="question">
+        <span v-html="question.question"></span>
+      </div>
+      <div>
+        <form class="question-form">
+          <span v-for="a in question.answers"
+                :class="{
+                  'form-item': true,
+                  'answered': answer,
+                  'answer': a.text === answer,
+                  'correct-answer': answer.length && a.correct,
+                  'wrong-answer': answer.length && !a.correct
+                }">
+            <span class="form-item-icon">*</span>
+            <input v-model="answer"
+                   type="radio"
+                   :id="a.text"
+                   @click="onAnswer(a.correct)"
+                   :value="a.text">
+            <label :for="a.text">
+              <span v-html="a.text"></span>
+            </label>
+          </span>
+        </form>
+        <div class="quizz-pass"
+             v-if="difficulty !== 'hard'">
+          <button @click="onAnswer('pass')"
+                  class="button">
+            Pass
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -47,7 +49,10 @@
   import * as settings from '../settings';
 
   export default Vue.component('quizz-container', {
-    data: () => ({answer: ''}),
+    data: () => ({
+      answer: '',
+      castOut: false
+    }),
     props: {
       question: Object,
       difficulty: String
@@ -57,12 +62,14 @@
 
         setTimeout(() => {
           this.$emit('onAnswer', correct);
+          this.castOut = true;
         }, settings.ANSWER_RESOLUTION_DELAY)
       }
     },
     watch: {
       question() {
         this.answer = '';
+        this.castOut = false;
       }
     },
     components: {}
@@ -73,6 +80,12 @@
   @import '../styles/vars.scss';
   @import '../styles/mixins.scss';
   @import '../styles/animations.scss';
+
+  .quizz-container {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+  }
 
   .quizz {
     background: $background-color;
@@ -137,5 +150,14 @@
 
   .quizz-pass {
     text-align: right;
+  }
+
+  .cast-in{
+    animation: spawn 0.4s;
+  }
+
+  .cast-out {
+    transition: transform 0.3s;
+    transform: translate(-100%, -200%) rotate3d(0,0,1, -120deg)
   }
 </style>

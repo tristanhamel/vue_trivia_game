@@ -1,30 +1,32 @@
 <template>
   <div class="board">
-    <svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox" class="view-box">
-      <defs>
-        <filter id="brightness">
-          <feComponentTransfer in="SourceGraphic" result="brightness-filter">
-            <feFuncR type="linear" slope="0.5"></feFuncR>
-            <feFuncG type="linear" slope="0.5"></feFuncG>
-            <feFuncB type="linear" slope="0.5"></feFuncB>
-          </feComponentTransfer>
-        </filter>
+    <div class="viewbox-container">
+      <svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox" class="view-box">
+        <defs>
+          <filter id="brightness">
+            <feComponentTransfer in="SourceGraphic" result="brightness-filter">
+              <feFuncR type="linear" slope="0.5"></feFuncR>
+              <feFuncG type="linear" slope="0.5"></feFuncG>
+              <feFuncB type="linear" slope="0.5"></feFuncB>
+            </feComponentTransfer>
+          </filter>
 
-        <pattern id="tiles-bg" x="0" y="0" patternUnits="userSpaceOnUse" height="102" width="102">
-          <image x="0" y="0" xlink:href="https://www.transparenttextures.com/patterns/dust.png"></image>
-        </pattern>
-      </defs>
+          <pattern id="tiles-bg" x="0" y="0" patternUnits="userSpaceOnUse" height="102" width="102">
+            <image x="0" y="0" xlink:href="https://www.transparenttextures.com/patterns/dust.png"></image>
+          </pattern>
+        </defs>
 
-      <g v-for="(tile, i) in tiles">
-        <path :class="[tile.className, i > score ? 'not-correct' : '']"
-              :d="tile.d">
-        </path>
-        <path :d="tile.d"
-              class="tile">
-        </path>
-      </g>
+        <g v-for="(tile, i) in tiles">
+          <path :class="[tile.className, i > score ? 'not-correct' : '']"
+                :d="tile.d">
+          </path>
+          <path :d="tile.d"
+                class="tile">
+          </path>
+        </g>
 
-    </svg>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -42,10 +44,9 @@
       length: Number
     },
     mounted() {
-//      this.tiles = Array.from(this.$el.getElementsByClassName('tile'));
       const board = boardGenerator(this.length);
       this.tiles = board.tiles;
-      this.viewBox = board.viewBox;
+      this.viewBox = board.viewBox.join(' ');
     },
     computed: {
       classObject(tile, i) {
@@ -54,7 +55,7 @@
           [tile.className]: true,
           'not-correct': i > this.score
         };
-      }
+      },
     },
     watch: {
       score(score) {
@@ -71,6 +72,11 @@
 <style lang="scss">
   .board {
     height: calc(100vh - 50px);
+    overflow: hidden;
+  }
+
+  .viewbox-container {
+    height: 100%;
   }
 
   .view-box {

@@ -186,7 +186,7 @@ function getViewBox(tiles, offset = 0) {
 
 export default function getBoard(n) {
   const tiles = generateTiles(n, settings);
-  const viewBox = getViewBox(tiles, settings.viewBoxOffset).join(' ');
+  const viewBox = getViewBox(tiles, settings.viewBoxOffset);
 
   return {tiles, viewBox};
 }

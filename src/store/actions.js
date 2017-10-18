@@ -84,7 +84,8 @@ export const onAnswer = function({commit, state, dispatch, getters}, correct) {
         }
       });
   } else {
-    commit(mutations.QUESTIONS_ON_ANSWER, correct);
+    delay(settings.NEXT_QUESTION_DELAY)
+      .then(() => commit(mutations.QUESTIONS_ON_ANSWER, correct));
   }
 
   // get more questions if we are running out

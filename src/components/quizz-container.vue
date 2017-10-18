@@ -75,9 +75,15 @@
   @import '../styles/animations.scss';
 
   .quizz {
+    background: $background-color;
     border: 1px solid $background-color-lighter;
+    border-radius: 10px;
+    box-shadow: #2a2a2a 0 0 20px 1px;
+    bottom: 0;
     margin: 1rem;
     padding: 0.5rem 1rem;
+    position: absolute;
+    width: calc(100% - 4rem);
   }
 
   .quizz-info {

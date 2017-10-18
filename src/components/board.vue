@@ -1,6 +1,6 @@
 <template>
   <div class="board">
-    <svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox">
+    <svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox" class="view-box">
       <defs>
         <filter id="brightness">
           <feComponentTransfer in="SourceGraphic" result="brightness-filter">
@@ -69,6 +69,17 @@
 </script>
 
 <style lang="scss">
+  .board {
+    height: calc(100vh - 50px);
+  }
+
+  .view-box {
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+  }
+
   .tile {
     fill: url(#tiles-bg);
   }

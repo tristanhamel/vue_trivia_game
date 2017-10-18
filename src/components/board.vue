@@ -43,7 +43,6 @@
     },
     mounted() {
 //      this.tiles = Array.from(this.$el.getElementsByClassName('tile'));
-      console.log(this.length);
       const board = boardGenerator(this.length);
       this.tiles = board.tiles;
       this.viewBox = board.viewBox;

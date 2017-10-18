@@ -7,6 +7,10 @@ html {
   font-family: $font-family;
 }
 
+body {
+  margin: 0;
+}
+
 input[type=radio]{
   visibility: hidden;
   position: absolute;

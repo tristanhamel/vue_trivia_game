@@ -24,11 +24,13 @@
       viewBox: '0 0 0 0'
     }),
     props: {
-      score: Number
+      score: Number,
+      length: Number
     },
     mounted() {
 //      this.tiles = Array.from(this.$el.getElementsByClassName('tile'));
-      const board = boardGenerator(20);
+      console.log(this.length);
+      const board = boardGenerator(this.length);
       this.tiles = board.tiles;
       this.viewBox = board.viewBox;
     },

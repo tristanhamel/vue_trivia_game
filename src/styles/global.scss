@@ -1,0 +1,38 @@
+@import 'vars';
+@import 'mixins';
+
+html {
+  color: $font-color;
+  font-family: $font-family;
+}
+
+input[type=radio]{
+  visibility: hidden;
+  position: absolute;
+}
+
+label {
+  cursor: pointer;
+}
+
+.title {
+  text-align: center;
+}
+
+.button {
+  background: none;
+  border-width: 0;
+  color: $font-color;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: 2rem;
+
+  transition: color 0.1s;
+
+  @include hoverText;
+
+  &:focus {
+    outline: none;
+    color: $font-color-active;
+  }
+}

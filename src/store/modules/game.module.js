@@ -31,8 +31,10 @@ export const game = {
     },
     [mutations.GAME_UPDATED](state) {
       state.isUpdating = false;
+    },
+    [mutations.GAME_SET_LENGTH](state, {length}) {
+      state.max = length;
     }
-
   },
   actions: {
 

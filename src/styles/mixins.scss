@@ -1,0 +1,8 @@
+@import './vars';
+
+@mixin hoverText {
+  &:hover {
+    color: $font-color-active;
+    transform: scale(1.1);
+  }
+}

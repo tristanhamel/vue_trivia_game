@@ -92,7 +92,7 @@
     background: $background-color;
     border: 1px solid $background-color-lighter;
     border-radius: 10px;
-    box-shadow: #2a2a2a 0 0 20px 1px;
+    box-shadow: $shadow-color 0 0 20px 1px;
     bottom: 0;
     margin: 1rem;
     padding: 0.5rem 1rem;
@@ -106,6 +106,10 @@
     justify-content: space-between;
     margin-bottom: 2rem;
     padding-bottom: 0.5rem;
+
+    .fa-star-filled {
+      color: $font-color-active;
+    }
   }
 
   .question {

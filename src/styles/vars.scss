@@ -5,9 +5,10 @@ $color4: rgba(2, 195, 154, 1);
 $color5: rgba(240, 243, 189, 1);
 
 $font-color: #d1d1d1;
-$font-color-active: $color4;
+$font-color-active: $color3;
 $font-color-inactive: darken($font-color, 20%);
 $font-family: serif;
 
 $background-color: black;
 $background-color-lighter: lighten($background-color, 10%);
+$shadow-color: $background-color-lighter;

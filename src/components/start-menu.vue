@@ -10,8 +10,8 @@
       </h2>
       <form class="start-menu-form">
         <div v-for="o in difficultyOptions"
-              :class="['form-item', localDif === o.text ? 'active-option' : '']">
-          <div class="form-item-label-container">
+             class="form-item">
+          <div :class="['form-item-label-container', localDif === o.text ? 'active-option' : '']" >
             <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
             <input type="radio"
                    v-model="localDif"
@@ -98,7 +98,7 @@
   });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '../styles/vars.scss';
   @import '../styles/mixins.scss';
 
@@ -149,7 +149,7 @@
 
   .form-item-label-container {
     text-align: center;
-    margin: 0.5rem;
+    margin: 0.5rem 0 0.5rem -2rem;
   }
 
   .form-item-label {

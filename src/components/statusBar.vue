@@ -31,7 +31,7 @@
 
   .status-bar {
     background: $background-color;
-    border-bottom: 1px solid $background-color-lighter;
+    border-bottom: 1px solid $shadow-color;
     display: flex;
     justify-content: space-between;
     padding: 0.2rem 0.5rem;

@@ -1,0 +1,6 @@
+
+.fa-cancel-outline:before { content: '\e800'; } /* '' */
+.fa-ok-outline:before { content: '\e802'; } /* '' */
+.fa-star-1:before { content: '\e803'; } /* '' */
+.fa-star-filled:before { content: '\e804'; } /* '' */
+.fa-arrows-cw-outline:before { content: '\e805'; } /* '' */

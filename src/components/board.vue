@@ -70,6 +70,8 @@
 </script>
 
 <style lang="scss">
+  @import '../styles/vars.scss';
+
   .board {
     height: calc(100vh - 50px);
     overflow: hidden;
@@ -91,19 +93,19 @@
   }
 
   .fill0 {
-    fill: yellow;
+    fill: $color1;
   }
   .fill1 {
-    fill: green;
+    fill: $color2;
   }
   .fill2 {
-    fill: red;
+    fill: $color3;
   }
   .fill3 {
-    fill: blue;
+    fill: $color4;
   }
   .fill4 {
-    fill: darkviolet;
+    fill: $color5;
   }
 
   .not-correct {

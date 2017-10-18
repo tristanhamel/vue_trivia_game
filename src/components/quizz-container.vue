@@ -4,8 +4,8 @@
       <div class="quizz-info">
         <div>{{ question.category }}</div>
         <div>
-          <span v-for="i in question.difficulty">*</span>
-          <span v-for="i in 3 - question.difficulty">-</span>
+          <span v-for="i in question.difficulty"><span class="fa-star-filled"></span></span>
+          <span v-for="i in 3 - question.difficulty"><span class="fa-star-1"></span></span>
         </div>
       </div>
       <div class="question">
@@ -21,7 +21,7 @@
                   'correct-answer': answer.length && a.correct,
                   'wrong-answer': answer.length && !a.correct
                 }">
-            <span class="form-item-icon">*</span>
+            <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
             <input v-model="answer"
                    type="radio"
                    :id="a.text"
@@ -36,7 +36,8 @@
              v-if="difficulty !== 'hard'">
           <button @click="onAnswer('pass')"
                   class="button">
-            Pass
+            <span class="fa-cancel-outline"></span>
+            <span>Pass</span>
           </button>
         </div>
       </div>

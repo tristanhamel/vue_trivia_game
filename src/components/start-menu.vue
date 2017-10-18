@@ -12,7 +12,7 @@
         <div v-for="o in difficultyOptions"
               :class="['form-item', localDif === o.text ? 'active-option' : '']">
           <div class="form-item-label-container">
-            <span class="form-item-icon">*</span>
+            <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
             <input type="radio"
                    v-model="localDif"
                    :value="o.text"
@@ -38,7 +38,7 @@
         <div v-for="o in lengthOptions"
               :class="['form-item', localLength === o.n ? 'active-option' : '']">
           <div class="form-item-label-container">
-            <span class="form-item-icon">*</span>
+            <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
             <input type="radio"
                    v-model="localLength"
                    :value="o.n"

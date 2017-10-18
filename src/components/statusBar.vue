@@ -2,7 +2,8 @@
   <div class="status-bar">
     <button @click="OnRestart"
             class="button">
-      Restart
+      <span class="fa-arrows-cw-outline"></span>
+      <span>Restart</span>
     </button>
     <div class="stats">
       <div>questions: {{questionCount}}</div>

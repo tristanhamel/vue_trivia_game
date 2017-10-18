@@ -16,8 +16,15 @@ label {
   cursor: pointer;
 }
 
+ul {
+  padding: 0;
+  list-style: none;
+}
+
 .title {
+  //color: $font-color-active;
   text-align: center;
+  width: 100%;
 }
 
 .button {
@@ -27,8 +34,6 @@ label {
   cursor: pointer;
   font-family: $font-family;
   font-size: 1rem;
-
-  transition: color 0.1s;
 
   @include hoverText;
 

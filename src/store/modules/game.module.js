@@ -6,7 +6,7 @@ export const game = {
     max: 3,
     difficulty: 'easy',
     // stage: 'start',
-    stage: 'play',
+    stage: 'end',
     isUpdating: false
   },
   mutations: {

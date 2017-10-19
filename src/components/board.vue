@@ -17,7 +17,7 @@
         </defs>
 
         <g v-for="(tile, i) in tiles"
-           :class="{correct: i > score}">
+           :class="{correct: i > score, removed: i <= removedIndex}">
           <path :class="['tile-bg', tile.className, i > score ? 'not-correct' : '']"
                 :d="tile.d">
           </path>
@@ -39,7 +39,8 @@
   export default Vue.component('board', {
     data: () => ({
       tiles: [],
-      viewBox: '0 0 0 0'
+      viewBox: '0 0 0 0',
+      removedIndex: -1
     }),
     props: {
       score: Number,
@@ -67,6 +68,21 @@
           'not-correct': i > this.score
         };
       },
+    },
+    watch: {
+      score() {
+        if(this.score === this.tiles.length) {
+          bumpIndex(this, this.tiles.length)
+        }
+
+        function bumpIndex(obj, max) {
+          obj.removedIndex += 1;
+
+          if(obj.removedIndex < max) {
+            setTimeout(() => bumpIndex(obj, max), settings.FALLING_TILES_INTERVAL)
+          }
+        }
+      }
     }
   });
 
@@ -121,7 +137,18 @@
     fill: gray;
   }
 
-  .correct {
+  .removed {
+    animation: drop 0.4s ease-in forwards;
+  }
+
+  @keyframes drop {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(150vh);
+    }
   }
 
   @keyframes highlight {

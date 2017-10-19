@@ -2,11 +2,12 @@ import * as mutations from '../mutations-types';
 
 export const game = {
   state: {
-    score: 0,
+    // score: 0,
+    score: 9,
     max: 10,
     difficulty: 'easy',
     // stage: 'start',
-    stage: 'end',
+    stage: 'play',
     isUpdating: false
   },
   mutations: {

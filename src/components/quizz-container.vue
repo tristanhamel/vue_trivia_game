@@ -71,7 +71,7 @@
       }
     },
     mounted() {
-      setTimeout(() => this.delayedStart = false, settings.TILES_STAGGER_DELAY * this.length + 600)
+      setTimeout(() => this.delayedStart = false, settings.FALLING_TILES_INTERVAL * this.length + 600)
     },
     watch: {
       question() {

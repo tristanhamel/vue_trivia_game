@@ -1,5 +1,6 @@
 <template>
-  <div class="end-view">
+  <div class="end-view"
+       v-if="!delayedStart">
     <div class="end-view-container">
       <h1 class="title">You won!</h1>
       <div class="end-view-section">
@@ -19,16 +20,25 @@
 
 <script>
   import Vue from 'vue';
+  import * as settings from '../settings';
+
   export default Vue.component('end-vue', {
+    data: () => ({
+      delayedStart: true
+    }),
     props: {
       correct: Number,
       incorrect: Number,
-      passed: Number
+      passed: Number,
+      length: Number
     },
     methods: {
       restart() {
         this.$emit('onRestart');
       }
+    },
+    mounted() {
+      setTimeout(() => this.delayedStart = false, settings.TILES_STAGGER_DELAY * this.length)
     }
   });
 </script>

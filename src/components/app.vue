@@ -21,6 +21,7 @@
     <end-view :correct="getRightQuestionsCount"
               :incorrect="getWrongQuestionsCount"
               :passed="getPassedQuestionsCount"
+              :length="length"
               @onRestart="reset"
               v-if="stage === 'end'">
     </end-view>

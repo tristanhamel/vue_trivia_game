@@ -1,6 +1,6 @@
 <template>
   <div>
-    <statusBar v-if="stage === 'play'"
+    <statusBar v-if="stage !== 'start'"
                :questionCount="questionCount"
                :score="score"
                @onRestart="reset">
@@ -26,7 +26,7 @@
     </end-view>
     <board :score="score"
            :length="length"
-           v-if="stage === 'play'">
+           v-if="stage !== 'start'">
     </board>
   </div>
 </template>

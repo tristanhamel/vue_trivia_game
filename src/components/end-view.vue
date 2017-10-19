@@ -2,14 +2,14 @@
   <div class="end-view">
     <div class="end-view-container">
       <h1 class="title">You won!</h1>
-      <div class="end-menu-section">
-        <ul class="stats">
+      <div class="end-view-section">
+        <ul class="end-view-stats">
           <li>good answers: {{correct}}</li>
           <li>bad answers: {{incorrect}}</li>
           <li>skipped questions: {{passed}}</li>
         </ul>
       </div>
-      <div class="end-menu-section">
+      <div class="end-view-section">
         <button @click="restart"
                 class="button restart-button">Restart</button>
       </div>
@@ -34,30 +34,38 @@
 </script>
 
 <style lang="scss">
+  @import '../styles/vars.scss';
+  @import '../styles/animations.scss';
+
   .end-view {
     display: flex;
     align-items: center;
     min-height: 100vh;
     min-width: 100vw;
+    position: absolute;
   }
 
   .end-view-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    background: $background-color;
+    border: 1px solid $background-color-lighter;
+    border-radius: 5px;
+    margin: 0 auto;
+    padding: 2rem;
+
+    animation: spawnBounce 0.5s ease-out;
 
     .title {
       margin-top: 0;
     }
   }
 
-  .end-menu-section {
+  .end-view-section {
     display: flex;
     justify-content: center;
     width: 100%;
   }
 
-  .stats {
+  .end-view-stats {
     margin-bottom: 2rem;
 
     li {

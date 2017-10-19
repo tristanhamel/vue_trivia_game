@@ -1,63 +1,65 @@
 <template>
-  <div class="start-menu">
-    <h1 class="title">
-      New Game
-    </h1>
+  <div class="start-menu-container">
+    <div class="start-menu">
+      <h1 class="title">
+        New Game
+      </h1>
 
-    <div class="start-menu-section">
-      <h2 class="section-title">
-        Difficulty
-      </h2>
-      <form class="start-menu-form">
-        <div v-for="o in difficultyOptions"
-             class="form-item">
-          <div :class="['form-item-label-container', localDif === o.text ? 'active-option' : '']" >
-            <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
-            <input type="radio"
-                   v-model="localDif"
-                   :value="o.text"
-                   :id="o.text"
-                   @click="onSetDifficulty(o.text)">
-            <label :for="o.text"
-                   class="form-item-label">
-              {{o.text}}
-            </label>
+      <div class="start-menu-section">
+        <h2 class="section-title">
+          Difficulty
+        </h2>
+        <form class="start-menu-form">
+          <div v-for="o in difficultyOptions"
+               class="form-item">
+            <div :class="['form-item-label-container', localDif === o.text ? 'active-option' : '']" >
+              <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
+              <input type="radio"
+                     v-model="localDif"
+                     :value="o.text"
+                     :id="o.text"
+                     @click="onSetDifficulty(o.text)">
+              <label :for="o.text"
+                     class="form-item-label">
+                {{o.text}}
+              </label>
+            </div>
           </div>
-          <div class="form-item-desc">
-            {{o.desc}}
-          </div>
+        </form>
+        <div class="form-item-desc">
+          {{difDesc}}
         </div>
-      </form>
-    </div>
+      </div>
 
-    <div class="start-menu-section">
-      <h2 class="section-title">
-        Length
-      </h2>
-      <form class="start-menu-form">
-        <div v-for="o in lengthOptions"
-              :class="['form-item', localLength === o.n ? 'active-option' : '']">
-          <div class="form-item-label-container">
-            <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
-            <input type="radio"
-                   v-model="localLength"
-                   :value="o.n"
-                   :id="o.text"
-                   @click="onSetLength(o.n)">
-            <label :for="o.text"
-                   class="form-item-label">
-              {{o.text}}
-            </label>
+      <div class="start-menu-section">
+        <h2 class="section-title">
+          Length
+        </h2>
+        <form class="start-menu-form">
+          <div v-for="o in lengthOptions"
+                :class="['form-item', localLength === o.n ? 'active-option' : '']">
+            <div class="form-item-label-container">
+              <span class="form-item-icon"><span class="fa-ok-outline"></span></span>
+              <input type="radio"
+                     v-model="localLength"
+                     :value="o.n"
+                     :id="o.text"
+                     @click="onSetLength(o.n)">
+              <label :for="o.text"
+                     class="form-item-label">
+                {{o.text}}
+              </label>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
 
-    <div class="start-menu-section">
-      <button @click="onStart"
-              class="button">
-        Start game
-      </button>
+      <div class="start-menu-section">
+        <button @click="onStart"
+                class="button">
+          Start game
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -94,6 +96,11 @@
       onStart() {
         this.$emit('onStart')
       }
+    },
+    computed: {
+      difDesc() {
+        return this.difficultyOptions.find(d => d.text === this.localDif).desc;
+      }
     }
   });
 </script>
@@ -102,17 +109,28 @@
   @import '../styles/vars.scss';
   @import '../styles/mixins.scss';
 
-  .start-menu {
+  .start-menu-container {
+    align-items: center;
     background-color: $background-color;
+    display: flex;
     min-height: 100vh;
     min-width: 100vw;
     position: absolute;
+  }
+
+  .start-menu {
+    border: 1px solid $background-color-lighter;
+    border-radius: 5px;
+    margin: 1rem;
+    padding: 1rem;
+    width: 100%;
   }
 
   .start-menu-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 1rem 0 0 0;
   }
 
   .section-title {
@@ -122,15 +140,13 @@
   }
 
   .start-menu-form {
-    align-items: center;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    justify-content: space-around;
     width: 100%;
   }
 
   .start-menu-section:last-of-type {
-    margin-top: 2rem;
+    margin: 2rem 0 1rem 0;
 
     .button {
       font-size: 2rem;
@@ -139,8 +155,6 @@
 
   .form-item {
     padding: 0.2rem;
-    width: 50%;
-
   }
 
   .form-item-icon {
@@ -162,6 +176,7 @@
 
   .form-item-desc {
     font-size: small;
+    min-height: 2rem;
     text-align: center;
   }
 

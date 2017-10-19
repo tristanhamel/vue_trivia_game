@@ -14,6 +14,7 @@
     </start-menu>
     <quizz-container :question="getCurrentQuestion"
                      :difficulty="difficulty"
+                     :length="length"
                      v-if="getCurrentQuestion && stage === 'play'"
                      @onAnswer="onAnswer">
     </quizz-container>
@@ -25,7 +26,8 @@
     </end-view>
     <board :score="score"
            :length="length"
-           v-if="stage === 'play'"></board>
+           v-if="stage === 'play'">
+    </board>
   </div>
 </template>
 

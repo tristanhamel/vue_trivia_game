@@ -16,8 +16,9 @@
           </pattern>
         </defs>
 
-        <g v-for="(tile, i) in tiles">
-          <path :class="[tile.className, i > score ? 'not-correct' : '']"
+        <g v-for="(tile, i) in tiles"
+           :class="{correct: i > score}">
+          <path :class="['tile-bg', tile.className, i > score ? 'not-correct' : '']"
                 :d="tile.d">
           </path>
           <path :d="tile.d"
@@ -33,6 +34,7 @@
 <script>
   import Vue from 'vue';
   import boardGenerator from '../services/board-generator';
+  import * as settings from '../settings';
 
   export default Vue.component('board', {
     data: () => ({
@@ -45,8 +47,17 @@
     },
     mounted() {
       const board = boardGenerator(this.length);
-      this.tiles = board.tiles;
       this.viewBox = board.viewBox.join(' ');
+
+      addTile(0, this.tiles);
+
+      // add tiles one by one for smooth transition effect
+      function addTile(i, ar) {
+        ar.push(board.tiles[i]);
+        if(i < board.tiles.length -1) {
+          setTimeout(() => addTile(i + 1, ar), settings.TILES_STAGGER_DELAY);
+        }
+      }
     },
     computed: {
       classObject(tile, i) {
@@ -56,17 +67,9 @@
           'not-correct': i > this.score
         };
       },
-    },
-    watch: {
-      score(score) {
-//        this.tiles
-//          .forEach((t, i) => {
-//            i <= score ? t.classList.remove('not-correct') : t.classList.add('not-correct');
-//          });
-      }
-
     }
   });
+
 </script>
 
 <style lang="scss">
@@ -89,7 +92,13 @@
   }
 
   .tile {
+    animation: highlight 1s;
     fill: url(#tiles-bg);
+  }
+
+  .tile-bg {
+    animation: highlight 1s;
+    transition: all 0.3s;
   }
 
   .fill0 {
@@ -110,6 +119,18 @@
 
   .not-correct {
     fill: gray;
-    /*filter: url(#brightness);*/
+  }
+
+  .correct {
+  }
+
+  @keyframes highlight {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 </style>

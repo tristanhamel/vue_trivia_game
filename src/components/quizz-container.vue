@@ -1,6 +1,7 @@
 <template>
   <div class="quizz-container">
-    <div :class="{'quizz': true, 'cast-out': castOut, 'cast-in': !castOut}">
+    <div :class="{'quizz': true, 'cast-out': castOut, 'cast-in': !castOut}"
+         v-if="!delayedStart">
       <div class="quizz-info">
         <div>{{ question.category }}</div>
         <div>
@@ -52,11 +53,13 @@
   export default Vue.component('quizz-container', {
     data: () => ({
       answer: '',
-      castOut: false
+      castOut: false,
+      delayedStart: true
     }),
     props: {
       question: Object,
-      difficulty: String
+      difficulty: String,
+      length: Number
     },
     methods: {
       onAnswer(correct) {
@@ -66,6 +69,9 @@
           this.castOut = true;
         }, settings.ANSWER_RESOLUTION_DELAY)
       }
+    },
+    mounted() {
+      setTimeout(() => this.delayedStart = false, settings.TILES_STAGGER_DELAY * this.length + 600)
     },
     watch: {
       question() {

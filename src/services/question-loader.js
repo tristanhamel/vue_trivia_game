@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import dummy from '../dummy-data';
+// import dummy from '../dummy-data';
 
 export const questionLoader = function(options) {
   const defaults = {
@@ -12,7 +12,7 @@ export const questionLoader = function(options) {
   const params = {...defaults, ...options};
   const URL = 'https://opentdb.com/api.php';
 
-  // return axios.get(URL, {params});
+  return axios.get(URL, {params});
 
-  return Promise.resolve({data:{results: dummy}});
+  // return Promise.resolve({data:{results: dummy}});
 };

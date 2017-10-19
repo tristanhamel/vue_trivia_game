@@ -172,6 +172,6 @@
 
   .cast-out {
     transition: transform 0.3s;
-    transform: translate(-100%, -200%) rotate3d(0,0,1, -120deg)
+    transform: translate(-100%, -300%) rotate3d(0,0,1, -120deg)
   }
 </style>

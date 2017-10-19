@@ -12,7 +12,7 @@
           </filter>
 
           <pattern id="tiles-bg" x="0" y="0" patternUnits="userSpaceOnUse" height="102" width="102">
-            <image x="0" y="0" href="src/assets/patterns/dust.png"></image>
+            <image x="0" y="0" href="../assets/patterns/dust.png"></image>
           </pattern>
         </defs>
 

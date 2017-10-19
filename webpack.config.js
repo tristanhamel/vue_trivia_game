@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js'
+    filename: '[name].[chunkhash].js'
   },
   resolve: {
     extensions: ['.js', '.vue'],
@@ -23,7 +23,10 @@ module.exports = {
             scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
             sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax', // <style lang="sass">
           },
-          extractCSS: true
+          extractCSS: true,
+          transformToRequire: {
+            image: 'href'
+          }
         }
       },
       {
@@ -56,8 +59,12 @@ module.exports = {
         loader: 'html-loader'
       },
       {
-        test: /\.(eot|woff|woff2|ttf|svg|jpg|png)$/,
+        test: /\.(eot|woff|woff2|ttf|svg)$/,
         loader: 'url-loader?limit=10000'
+      },
+      {
+        test: /\.(jpe?g|gif|png)$/,
+        loader: 'file-loader',
       }
     ]
   },
@@ -66,13 +73,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     })
-  ],
-  devServer: {
-    // proxy: {
-    //   '/': {
-    //     target: 'http://localhost:4000',
-    //     secure: false
-    //   },
-    // }
-  }
+  ]
 };

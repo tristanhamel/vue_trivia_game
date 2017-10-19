@@ -121,9 +121,11 @@
   .start-menu {
     border: 1px solid $background-color-lighter;
     border-radius: 5px;
-    margin: 1rem;
+    margin: 0 auto;
+    max-width: calc(100vw - 3rem);
     padding: 1rem;
-    width: 100%;
+    width: 30rem;
+
   }
 
   .start-menu-section {

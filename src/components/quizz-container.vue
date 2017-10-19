@@ -90,8 +90,11 @@
 
   .quizz-container {
     bottom: 0;
+    display: flex;
+    justify-content: center;
     position: absolute;
     width: 100%;
+
   }
 
   .quizz {
@@ -101,9 +104,9 @@
     box-shadow: $shadow-color 0 0 20px 1px;
     bottom: 0;
     margin: 1rem;
+    max-width: calc(100vw - 3rem);
     padding: 0.5rem 1rem;
-    position: absolute;
-    width: calc(100% - 4rem);
+    width: 30rem;
   }
 
   .quizz-info {
